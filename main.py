@@ -76,7 +76,7 @@ for e in x.keys():
 a = [(y, x) for x, y in a]
 a.sort()
 a = [(int(y), int(x)) for x, y in a]
-min = a[1]
+min = a[0]
 max = a[-1]
 x = {'date': [], **x}
 for e in x:
