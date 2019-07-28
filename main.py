@@ -40,7 +40,7 @@ def getter(_in):
 
 def analyze(string):
     p = {}
-    for e in string.split('\n'):
+    for e in string.split('\n')[:-1]:
         e = e.split(' ')
         if e[0] not in p:
             p[e[0]] = []
@@ -73,7 +73,23 @@ x = process(analyze(_in))
 a = []
 for e in x.keys():
     a += x[e]
+a = [(y, x) for x, y in a]
 a.sort()
-min = a[::-1]
-max = a[::-1]
-print(a, min, max)
+a = [(int(y), int(x)) for x, y in a]
+min = a[1]
+max = a[-1]
+x = {'date': [], **x}
+for e in x:
+    print(e, end=' ')
+    for year in range(min[1], max[1]+1):
+        for month in range(1, 13):
+            if year == min[1] and month < min[0]:
+                continue
+            if year == max[1] and month > max[0]:
+                continue
+            string = ('0' + str(month))[-2:]+'\''+str(year)
+            if e == 'date':
+                print(string, end=' ')
+            else:
+                print(1 if (tuple(string.split('\'')) in x[e]) else 0, end=' ')
+    print()
